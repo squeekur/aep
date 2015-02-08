@@ -1,6 +1,8 @@
 package edu.berkeley.aep;
 
-// Understands a four sided figure with four right angles
+/**
+ * Understands a four sided figure with four right angles
+ */
 public class Rectangle {
     private final int length;
     private final int width;
