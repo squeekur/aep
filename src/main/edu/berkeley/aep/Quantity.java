@@ -25,6 +25,18 @@ public class Quantity {
     }
 
     private boolean equals(Quantity other) {
-        return units.convertsTo(other.units) && units.toBaseUnits(size) == other.units.toBaseUnits(other.size);
+        if (!units.convertsTo(other.units)) return false;
+        return size == other.convertTo(units).size;
+    }
+
+    private Quantity convertTo(Units otherUnits) {
+        return new Quantity(units.convertTo(size, otherUnits), units);
+    }
+
+    public Quantity add(Quantity quantity) {
+        if (!quantity.units.convertsTo(units)) {
+            throw new RuntimeException("Cannot add " + quantity.units + " to " + units);
+        }
+        return new Quantity(quantity.convertTo(units).size + size, units);
     }
 }
