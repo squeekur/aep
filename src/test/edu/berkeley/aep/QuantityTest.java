@@ -9,63 +9,64 @@ public class QuantityTest {
 
     @Test
     public void threeFeetShouldEqualOneYard() {
-        Quantity oneYard = new Quantity(1, Units.YARDS);
-        Quantity threeFeet = new Quantity(3, Units.FEET);
+        Quantity oneYard = Quantity.createQuantity(1, Units.YARDS);
+        Quantity threeFeet = Quantity.createQuantity(3, Units.FEET);
         assertEquals(oneYard, threeFeet);
     }
 
     @Test
     public void oneMileShouldEqual1760Yard() {
-        Quantity oneMile = new Quantity(1, Units.MILES);
-        Quantity oneMileInYards = new Quantity(1760, Units.YARDS);
+        Quantity oneMile = Quantity.createQuantity(1, Units.MILES);
+        Quantity oneMileInYards = Quantity.createQuantity(1760, Units.YARDS);
         assertEquals(oneMile, oneMileInYards);
     }
 
     @Test
     public void oneTablespoonShouldEqualThreeTeaspoons() {
-        Quantity oneTablespoon = new Quantity(1, Units.TBSP);
-        Quantity threeTeaspoons = new Quantity(3, Units.TSP);
+        Quantity oneTablespoon = Quantity.createQuantity(1, Units.TBSP);
+        Quantity threeTeaspoons = Quantity.createQuantity(3, Units.TSP);
         assertEquals(oneTablespoon, threeTeaspoons);
     }
 
     @Test
     public void oneOzShouldEqualTwoTablespoons() {
-        Quantity oneOz = new Quantity(1, Units.OZ);
-        Quantity twoTablespoons = new Quantity(2, Units.TBSP);
+        Quantity oneOz = Quantity.createQuantity(1, Units.OZ);
+        Quantity twoTablespoons = Quantity.createQuantity(2, Units.TBSP);
         assertEquals(oneOz, twoTablespoons);
     }
 
     @Test
     public void eightOzShouldEqualOneCup() {
-        Quantity eightOz = new Quantity(8, Units.OZ);
-        Quantity oneCup = new Quantity(1, Units.CUPS);
+        Quantity eightOz = Quantity.createQuantity(8, Units.OZ);
+        Quantity oneCup = Quantity.createQuantity(1, Units.CUPS);
         assertEquals(eightOz, oneCup);
     }
 
     @Test
     public void oneInchShouldNotEqualOneTsp() {
-        Quantity tsp = new Quantity(1, Units.TSP);
-        Quantity inch = new Quantity(1, Units.INCHES);
+        Quantity tsp = Quantity.createQuantity(1, Units.TSP);
+        Quantity inch = Quantity.createQuantity(1, Units.INCHES);
         assertNotEquals(tsp, inch);
     }
 
     @Test
     public void twoInchesPlusTwoInchesShouldEqualFourInches() {
-        assertEquals(new Quantity(4, Units.INCHES), new Quantity(2, Units.INCHES).add(new Quantity(2, Units.INCHES)));
+        assertEquals(Quantity.createQuantity(4, Units.INCHES),
+                ((ArithmeticQuantity) Quantity.createQuantity(2, Units.INCHES)).add(Quantity.createQuantity(2, Units.INCHES)));
     }
 
     @Test
     public void twoTbspPlus1OzShouldEqual12Tsp() {
-        assertEquals(new Quantity(15, Units.TSP), new Quantity(3, Units.TBSP).add(new Quantity(1, Units.OZ)));
+        assertEquals(Quantity.createQuantity(15, Units.TSP), ((ArithmeticQuantity) Quantity.createQuantity(3, Units.TBSP)).add(new ArithmeticQuantity(1, Units.OZ)));
     }
 
     @Test
     public void oneHundredCelsiusShouldEqual212F() {
-        assertEquals(new Quantity(212, Units.FAHRENHEIT), new Quantity(100, Units.CELSIUS));
+        assertEquals(Quantity.createQuantity(212, Units.FAHRENHEIT), Quantity.createQuantity(100, Units.CELSIUS));
     }
 
     @Test(expected = RuntimeException.class)
     public void oneTspPlusOneInchShouldGiveAnException() {
-        assertNotEquals(new Quantity(1, Units.CELSIUS), new Quantity(1, Units.TSP).add(new Quantity(1, Units.INCHES)));
+        assertNotEquals(new ArithmeticQuantity(1, Units.CELSIUS), new ArithmeticQuantity(1, Units.TSP).add(new ArithmeticQuantity(1, Units.INCHES)));
     }
 }

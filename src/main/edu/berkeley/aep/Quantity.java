@@ -1,14 +1,24 @@
 package edu.berkeley.aep;
 
-// Understands an amount in a given unit
+// Understands an amount in a given scaled unit
 public class Quantity {
+    protected final int size;
+    protected final Units units;
 
-    private final int size;
-    private final Units units;
+    public static Quantity createQuantity(int size, Units units) {
+        if (units.isArithmetic()) {
+            return new ArithmeticQuantity(size, units);
+        }
+        return new Quantity(size, units);
+    }
 
-    public Quantity(int size, Units units) {
+    protected Quantity(int size, Units units) {
         this.size = size;
         this.units = units;
+    }
+
+    protected Quantity convertTo(Units otherUnits) {
+        return new Quantity(units.convertTo(size, otherUnits), units);
     }
 
     @Override
@@ -27,16 +37,5 @@ public class Quantity {
     private boolean equals(Quantity other) {
         if (!units.convertsTo(other.units)) return false;
         return size == other.convertTo(units).size;
-    }
-
-    private Quantity convertTo(Units otherUnits) {
-        return new Quantity(units.convertTo(size, otherUnits), units);
-    }
-
-    public Quantity add(Quantity quantity) {
-        if (!quantity.units.convertsTo(units)) {
-            throw new RuntimeException("Cannot add " + quantity.units + " to " + units);
-        }
-        return new Quantity(quantity.convertTo(units).size + size, units);
     }
 }
