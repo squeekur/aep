@@ -9,8 +9,6 @@ public class Reverser {
     }
 
     public String reverse() {
-        if (toReverse == null || toReverse.length() < 2)
-            return toReverse;
         return new Reverser(toReverse.substring(1)).reverse() + toReverse.charAt(0);
     }
 }
