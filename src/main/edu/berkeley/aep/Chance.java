@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Understands the likelihood of something happening
  */
-public class Chance {
+public class Chance implements Bestable<Chance> {
 
     private final BigDecimal probability;
     private static final BigDecimal CERTAINTY = BigDecimal.ONE;
@@ -46,5 +46,10 @@ public class Chance {
     @Override
     public String toString() {
         return "Chance: " + probability;
+    }
+
+    @Override
+    public boolean betterThan(Chance other) {
+        return probability.compareTo(other.probability) == 1;
     }
 }

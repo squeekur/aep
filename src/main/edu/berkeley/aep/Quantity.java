@@ -1,11 +1,11 @@
 package edu.berkeley.aep;
 
 // Understands an amount in a given scaled unit
-public class Quantity {
+public class Quantity implements Bestable<Quantity> {
     protected final int size;
     protected final Units units;
 
-    public static Quantity createQuantity(int size, Units units) {
+    public static Quantity create(int size, Units units) {
         if (units.isArithmetic()) {
             return new ArithmeticQuantity(size, units);
         }
@@ -38,4 +38,10 @@ public class Quantity {
         if (!units.convertsTo(other.units)) return false;
         return size == other.convertTo(units).size;
     }
+
+    @Override
+    public boolean betterThan(Quantity other) {
+        return size > (other.convertTo(units)).size;
+    }
+
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ChanceTest {
 
@@ -54,5 +55,10 @@ public class ChanceTest {
         Chance coinToss = new Chance(0.5);
         assertEquals(new Chance(0.75), coinToss.or(coinToss));
         assertEquals(new Chance(1), new Chance(1).or(coinToss));
+    }
+
+    @Test
+    public void probabilityOfHalfShouldBeGreaterThanProbabilityOfQuarter() {
+        assertTrue(new Chance(0.5).betterThan(new Chance(0.25)));
     }
 }

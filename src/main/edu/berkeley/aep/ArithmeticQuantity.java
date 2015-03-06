@@ -1,5 +1,7 @@
 package edu.berkeley.aep;
 
+import java.io.Serializable;
+
 // Understands an amount in a given arithmetic unit
 class ArithmeticQuantity extends Quantity {
 
