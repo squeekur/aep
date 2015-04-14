@@ -19,7 +19,7 @@ public class Units {
     private final UnitType unitType;
     private final String name;
 
-    private enum UnitType { DISTANCE(true), VOLUME(true), TEMPERATURE(false);
+    private static enum UnitType { DISTANCE(true), VOLUME(true), TEMPERATURE(false);
         private final boolean isArithmetic;
         UnitType(boolean isArithmetic) {
             this.isArithmetic = isArithmetic;
